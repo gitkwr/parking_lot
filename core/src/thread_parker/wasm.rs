@@ -19,6 +19,7 @@ impl super::ThreadParkerT for ThreadParker {
     const IS_CHEAP_TO_CONSTRUCT: bool = true;
 
     fn new() -> ThreadParker {
+        log::info!("Using wasm parker");
         ThreadParker(())
     }
 

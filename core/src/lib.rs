@@ -65,3 +65,26 @@ pub use self::parking_lot::{
 };
 pub use self::parking_lot::{DEFAULT_PARK_TOKEN, DEFAULT_UNPARK_TOKEN};
 pub use self::spinwait::SpinWait;
+
+pub fn check_platform() {
+    if cfg!(any(target_os = "linux", target_os = "android")) {
+    } else if cfg!(unix) {
+        log::info!("linux")
+    } else if cfg!(windows) {
+        log::info!("windows")
+    } else if cfg!(target_os = "redox") {
+        log::info!("redox")
+    } else if cfg!(all(target_env = "sgx", target_vendor = "fortanix")) {
+        log::info!("sgx")
+    } else if cfg!(all(
+        feature = "nightly",
+        target_family = "wasm",
+        target_feature = "atomics"
+    )) {
+        log::info!("wasm_atomics")
+    } else if cfg!(target_family = "wasm") {
+        log::info!("wasm")
+    } else {
+        log::info!("generic")
+    }
+}

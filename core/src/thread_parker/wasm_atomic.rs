@@ -27,6 +27,7 @@ impl super::ThreadParkerT for ThreadParker {
 
     #[inline]
     fn new() -> ThreadParker {
+        log::info!("using wasm_atomic parker");
         ThreadParker {
             parked: AtomicI32::new(UNPARKED),
         }
